@@ -1,5 +1,4 @@
 class Menu:
-
     menu = {
     1: {"name": 'espresso',
         "price": 1.99},
@@ -15,13 +14,20 @@ class Menu:
         "price": 2.65},
     7: {"name": 'sandwich',
         "price": 4.99}
-    }
-
+}
+    def __init__(self) -> dict:
+        self.menu = Menu.menu
+        
+        
     def display_menu(self):
         print("------- Menu -------")
 
         for selection in self.menu:
             print(f"{selection}. {self.menu[selection]['name'] : <9} | {self.menu[selection]['price'] : >5}")
-
         print()
-    pass
+    
+# menu_obj = Menu()
+# print_menu = menu_obj.display_menu()
+
+
+    

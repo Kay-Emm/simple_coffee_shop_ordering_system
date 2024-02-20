@@ -86,7 +86,7 @@ class Order:
         except TypeError:
             print("Unable to show your oder due to an internal error.")
 
-    def prompt():
+    def prompt(self):
         print("\nPlease note: We only take cash!")
         user_input= input("How much are you paying? (i.e $ 5.00) ")
         
@@ -144,7 +144,7 @@ class Order:
         
         # self.display_menu()
         order = []
-        count = 0
+        count = 1
     
         try:
             item_num = int(input("How many items would you like to order?: "))
@@ -167,6 +167,7 @@ class Order:
                         print("Invalid order number. Please enter a number between 1 and 7.")
                     
                 # print(order)
+                return order
                 
         except ValueError:
             print('''Please insert a valid number to choose the number of items to order, and to choose the desired item.\n 

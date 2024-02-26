@@ -19,7 +19,7 @@ class TestSystemTests(unittest.TestCase):
         self.mock_subtotal = self.order.calculate_subtotal(self.mock_order)
         self.mock_tax = round((self.mock_subtotal *15)/100,2)
         self.mock_total = round((self.mock_subtotal + self.mock_tax),2)
-
+        # self.mock_amount_to_pay = self.order.prompt()
 
     @patch("system_components.order.Order.calculate_subtotal", return_value = 5.29)
     def test_calculate_subtotal(self, mock_calculate_subtotal):
@@ -30,7 +30,6 @@ class TestSystemTests(unittest.TestCase):
     @patch("system_components.order.Order.calculate_tax", return_value = 0.79)
     def test_calculate_tax(self, mock_calculate_tax):
 
-        
         output = self.order.calculate_tax(self.mock_subtotal)
         self.assertEqual(output, self.mock_tax)
        
@@ -42,6 +41,14 @@ class TestSystemTests(unittest.TestCase):
         mock_order_summary = (mock_names, self.mock_total)
         output = self.order.summarize_order(self.mock_order)
         self.assertEqual(output, mock_order_summary)
+
+    @patch("system_components.order.Order.summarize_order")
+    def test_calculate_change(self, mock_amount_to_pay):
+        mock_amount_to_pay = self.order.prompt()
+        mock_change = round(self.mock_amount_to_pay - self.mock_total, 2)
+        output = self.order.calculate_change(self.total, self.amount_to_pay)
+        self.assertEqual(output, mock_change)
+        
 
 if __name__ == "__main__":
     unittest.main()

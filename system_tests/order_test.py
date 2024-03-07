@@ -1,6 +1,6 @@
 import unittest 
 from unittest.mock import patch
-from system_components.menu import * 
+from system_components.menu import *
 from system_components.order import *
 
 
@@ -29,24 +29,25 @@ class TestSystemTests(unittest.TestCase):
 
     @patch("system_components.order.Order.calculate_tax", return_value = 0.79)
     def test_calculate_tax(self, mock_calculate_tax):
-
+        
         output = self.order.calculate_tax(self.mock_subtotal)
         self.assertEqual(output, self.mock_tax)
        
         
     @patch("system_components.order.Order.summarize_order",return_value = (['cake', 'coffee'], 6.08))
-    def test_summarize_order(self, mock_summarize_order):
+    def test_summarize_order(self, mock_order_summary):
         
         mock_names = [mock_item["name"] for mock_item in self.mock_order]
         mock_order_summary = (mock_names, self.mock_total)
         output = self.order.summarize_order(self.mock_order)
         self.assertEqual(output, mock_order_summary)
 
-    @patch("system_components.order.Order.summarize_order")
-    def test_calculate_change(self, mock_amount_to_pay):
-        mock_amount_to_pay = self.order.prompt()
-        mock_change = round(self.mock_amount_to_pay - self.mock_total, 2)
-        output = self.order.calculate_change(self.total, self.amount_to_pay)
+    @patch("builtins.input", side_effect = ["7.08"])
+    def test_calculate_change(self, mock_prompt):
+       
+        mock_change = round(float("7.08") - self.mock_total, 2)
+        output = float(self.order.calculate_change(self.mock_total, mock_prompt))
+        
         self.assertEqual(output, mock_change)
         
 
